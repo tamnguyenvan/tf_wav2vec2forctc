@@ -1,0 +1,1529 @@
+input shape (1, 16000)
+before encoder (1, 49, 768)
+
+
+
+Model: "model"
+__________________________________________________________________________________________________
+ Layer (type)                   Output Shape         Param #     Connected to                     
+==================================================================================================
+ input_1 (InputLayer)           [(1, 16000)]         0           []                               
+                                                                                                  
+ tf.cast (TFOpLambda)           (1, 16000)           0           ['input_1[0][0]']                
+                                                                                                  
+ tf.expand_dims (TFOpLambda)    (1, 16000, 1)        0           ['tf.cast[0][0]']                
+                                                                                                  
+ conv1d (Conv1D)                (1, 3199, 512)       5120        ['tf.expand_dims[0][0]']         
+                                                                                                  
+ tf.math.reduce_mean (TFOpLambd  (1, 1, 512)         0           ['conv1d[0][0]']                 
+ a)                                                                                               
+                                                                                                  
+ tf.stop_gradient (TFOpLambda)  (1, 1, 512)          0           ['tf.math.reduce_mean[0][0]']    
+                                                                                                  
+ tf.math.squared_difference (TF  (1, 3199, 512)      0           ['conv1d[0][0]',                 
+ OpLambda)                                                        'tf.stop_gradient[0][0]']       
+                                                                                                  
+ tf.math.reduce_mean_1 (TFOpLam  (1, 1, 512)         0           ['tf.math.squared_difference[0][0
+ bda)                                                            ]']                              
+                                                                                                  
+ tf.__operators__.add (TFOpLamb  (1, 1, 512)         0           ['tf.math.reduce_mean_1[0][0]']  
+ da)                                                                                              
+                                                                                                  
+ tf.math.rsqrt (TFOpLambda)     (1, 1, 512)          0           ['tf.__operators__.add[0][0]']   
+                                                                                                  
+ tf.math.multiply (TFOpLambda)  (1, 1, 512)          0           ['tf.math.rsqrt[0][0]']          
+                                                                                                  
+ tf.math.multiply_2 (TFOpLambda  (1, 1, 512)         0           ['tf.math.reduce_mean[0][0]',    
+ )                                                                'tf.math.multiply[0][0]']       
+                                                                                                  
+ tf.cast_1 (TFOpLambda)         (1, 1, 512)          0           ['tf.math.multiply[0][0]']       
+                                                                                                  
+ tf.math.subtract (TFOpLambda)  (1, 1, 512)          0           ['tf.math.multiply_2[0][0]']     
+                                                                                                  
+ tf.math.multiply_1 (TFOpLambda  (1, 3199, 512)      0           ['conv1d[0][0]',                 
+ )                                                                'tf.cast_1[0][0]']              
+                                                                                                  
+ tf.cast_2 (TFOpLambda)         (1, 1, 512)          0           ['tf.math.subtract[0][0]']       
+                                                                                                  
+ tf.__operators__.add_1 (TFOpLa  (1, 3199, 512)      0           ['tf.math.multiply_1[0][0]',     
+ mbda)                                                            'tf.cast_2[0][0]']              
+                                                                                                  
+ tf.convert_to_tensor (TFOpLamb  (1, 3199, 512)      0           ['tf.__operators__.add_1[0][0]'] 
+ da)                                                                                              
+                                                                                                  
+ tf.math.pow (TFOpLambda)       (1, 3199, 512)       0           ['tf.convert_to_tensor[0][0]']   
+                                                                                                  
+ tf.math.multiply_3 (TFOpLambda  (1, 3199, 512)      0           ['tf.math.pow[0][0]']            
+ )                                                                                                
+                                                                                                  
+ tf.__operators__.add_2 (TFOpLa  (1, 3199, 512)      0           ['tf.convert_to_tensor[0][0]',   
+ mbda)                                                            'tf.math.multiply_3[0][0]']     
+                                                                                                  
+ tf.math.multiply_4 (TFOpLambda  (1, 3199, 512)      0           ['tf.__operators__.add_2[0][0]'] 
+ )                                                                                                
+                                                                                                  
+ tf.math.tanh (TFOpLambda)      (1, 3199, 512)       0           ['tf.math.multiply_4[0][0]']     
+                                                                                                  
+ tf.__operators__.add_3 (TFOpLa  (1, 3199, 512)      0           ['tf.math.tanh[0][0]']           
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.multiply_5 (TFOpLambda  (1, 3199, 512)      0           ['tf.__operators__.add_3[0][0]'] 
+ )                                                                                                
+                                                                                                  
+ tf.math.multiply_6 (TFOpLambda  (1, 3199, 512)      0           ['tf.convert_to_tensor[0][0]',   
+ )                                                                'tf.math.multiply_5[0][0]']     
+                                                                                                  
+ conv1d_1 (Conv1D)              (1, 1599, 512)       786432      ['tf.math.multiply_6[0][0]']     
+                                                                                                  
+ tf.convert_to_tensor_1 (TFOpLa  (1, 1599, 512)      0           ['conv1d_1[0][0]']               
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.pow_1 (TFOpLambda)     (1, 1599, 512)       0           ['tf.convert_to_tensor_1[0][0]'] 
+                                                                                                  
+ tf.math.multiply_7 (TFOpLambda  (1, 1599, 512)      0           ['tf.math.pow_1[0][0]']          
+ )                                                                                                
+                                                                                                  
+ tf.__operators__.add_4 (TFOpLa  (1, 1599, 512)      0           ['tf.convert_to_tensor_1[0][0]', 
+ mbda)                                                            'tf.math.multiply_7[0][0]']     
+                                                                                                  
+ tf.math.multiply_8 (TFOpLambda  (1, 1599, 512)      0           ['tf.__operators__.add_4[0][0]'] 
+ )                                                                                                
+                                                                                                  
+ tf.math.tanh_1 (TFOpLambda)    (1, 1599, 512)       0           ['tf.math.multiply_8[0][0]']     
+                                                                                                  
+ tf.__operators__.add_5 (TFOpLa  (1, 1599, 512)      0           ['tf.math.tanh_1[0][0]']         
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.multiply_9 (TFOpLambda  (1, 1599, 512)      0           ['tf.__operators__.add_5[0][0]'] 
+ )                                                                                                
+                                                                                                  
+ tf.math.multiply_10 (TFOpLambd  (1, 1599, 512)      0           ['tf.convert_to_tensor_1[0][0]', 
+ a)                                                               'tf.math.multiply_9[0][0]']     
+                                                                                                  
+ conv1d_2 (Conv1D)              (1, 799, 512)        786432      ['tf.math.multiply_10[0][0]']    
+                                                                                                  
+ tf.convert_to_tensor_2 (TFOpLa  (1, 799, 512)       0           ['conv1d_2[0][0]']               
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.pow_2 (TFOpLambda)     (1, 799, 512)        0           ['tf.convert_to_tensor_2[0][0]'] 
+                                                                                                  
+ tf.math.multiply_11 (TFOpLambd  (1, 799, 512)       0           ['tf.math.pow_2[0][0]']          
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_6 (TFOpLa  (1, 799, 512)       0           ['tf.convert_to_tensor_2[0][0]', 
+ mbda)                                                            'tf.math.multiply_11[0][0]']    
+                                                                                                  
+ tf.math.multiply_12 (TFOpLambd  (1, 799, 512)       0           ['tf.__operators__.add_6[0][0]'] 
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_2 (TFOpLambda)    (1, 799, 512)        0           ['tf.math.multiply_12[0][0]']    
+                                                                                                  
+ tf.__operators__.add_7 (TFOpLa  (1, 799, 512)       0           ['tf.math.tanh_2[0][0]']         
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.multiply_13 (TFOpLambd  (1, 799, 512)       0           ['tf.__operators__.add_7[0][0]'] 
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_14 (TFOpLambd  (1, 799, 512)       0           ['tf.convert_to_tensor_2[0][0]', 
+ a)                                                               'tf.math.multiply_13[0][0]']    
+                                                                                                  
+ conv1d_3 (Conv1D)              (1, 399, 512)        786432      ['tf.math.multiply_14[0][0]']    
+                                                                                                  
+ tf.convert_to_tensor_3 (TFOpLa  (1, 399, 512)       0           ['conv1d_3[0][0]']               
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.pow_3 (TFOpLambda)     (1, 399, 512)        0           ['tf.convert_to_tensor_3[0][0]'] 
+                                                                                                  
+ tf.math.multiply_15 (TFOpLambd  (1, 399, 512)       0           ['tf.math.pow_3[0][0]']          
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_8 (TFOpLa  (1, 399, 512)       0           ['tf.convert_to_tensor_3[0][0]', 
+ mbda)                                                            'tf.math.multiply_15[0][0]']    
+                                                                                                  
+ tf.math.multiply_16 (TFOpLambd  (1, 399, 512)       0           ['tf.__operators__.add_8[0][0]'] 
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_3 (TFOpLambda)    (1, 399, 512)        0           ['tf.math.multiply_16[0][0]']    
+                                                                                                  
+ tf.__operators__.add_9 (TFOpLa  (1, 399, 512)       0           ['tf.math.tanh_3[0][0]']         
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.multiply_17 (TFOpLambd  (1, 399, 512)       0           ['tf.__operators__.add_9[0][0]'] 
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_18 (TFOpLambd  (1, 399, 512)       0           ['tf.convert_to_tensor_3[0][0]', 
+ a)                                                               'tf.math.multiply_17[0][0]']    
+                                                                                                  
+ conv1d_4 (Conv1D)              (1, 199, 512)        786432      ['tf.math.multiply_18[0][0]']    
+                                                                                                  
+ tf.convert_to_tensor_4 (TFOpLa  (1, 199, 512)       0           ['conv1d_4[0][0]']               
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.pow_4 (TFOpLambda)     (1, 199, 512)        0           ['tf.convert_to_tensor_4[0][0]'] 
+                                                                                                  
+ tf.math.multiply_19 (TFOpLambd  (1, 199, 512)       0           ['tf.math.pow_4[0][0]']          
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_10 (TFOpL  (1, 199, 512)       0           ['tf.convert_to_tensor_4[0][0]', 
+ ambda)                                                           'tf.math.multiply_19[0][0]']    
+                                                                                                  
+ tf.math.multiply_20 (TFOpLambd  (1, 199, 512)       0           ['tf.__operators__.add_10[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_4 (TFOpLambda)    (1, 199, 512)        0           ['tf.math.multiply_20[0][0]']    
+                                                                                                  
+ tf.__operators__.add_11 (TFOpL  (1, 199, 512)       0           ['tf.math.tanh_4[0][0]']         
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_21 (TFOpLambd  (1, 199, 512)       0           ['tf.__operators__.add_11[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_22 (TFOpLambd  (1, 199, 512)       0           ['tf.convert_to_tensor_4[0][0]', 
+ a)                                                               'tf.math.multiply_21[0][0]']    
+                                                                                                  
+ conv1d_5 (Conv1D)              (1, 99, 512)         524288      ['tf.math.multiply_22[0][0]']    
+                                                                                                  
+ tf.convert_to_tensor_5 (TFOpLa  (1, 99, 512)        0           ['conv1d_5[0][0]']               
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.pow_5 (TFOpLambda)     (1, 99, 512)         0           ['tf.convert_to_tensor_5[0][0]'] 
+                                                                                                  
+ tf.math.multiply_23 (TFOpLambd  (1, 99, 512)        0           ['tf.math.pow_5[0][0]']          
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_12 (TFOpL  (1, 99, 512)        0           ['tf.convert_to_tensor_5[0][0]', 
+ ambda)                                                           'tf.math.multiply_23[0][0]']    
+                                                                                                  
+ tf.math.multiply_24 (TFOpLambd  (1, 99, 512)        0           ['tf.__operators__.add_12[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_5 (TFOpLambda)    (1, 99, 512)         0           ['tf.math.multiply_24[0][0]']    
+                                                                                                  
+ tf.__operators__.add_13 (TFOpL  (1, 99, 512)        0           ['tf.math.tanh_5[0][0]']         
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_25 (TFOpLambd  (1, 99, 512)        0           ['tf.__operators__.add_13[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_26 (TFOpLambd  (1, 99, 512)        0           ['tf.convert_to_tensor_5[0][0]', 
+ a)                                                               'tf.math.multiply_25[0][0]']    
+                                                                                                  
+ conv1d_6 (Conv1D)              (1, 49, 512)         524288      ['tf.math.multiply_26[0][0]']    
+                                                                                                  
+ tf.convert_to_tensor_6 (TFOpLa  (1, 49, 512)        0           ['conv1d_6[0][0]']               
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.pow_6 (TFOpLambda)     (1, 49, 512)         0           ['tf.convert_to_tensor_6[0][0]'] 
+                                                                                                  
+ tf.math.multiply_27 (TFOpLambd  (1, 49, 512)        0           ['tf.math.pow_6[0][0]']          
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_14 (TFOpL  (1, 49, 512)        0           ['tf.convert_to_tensor_6[0][0]', 
+ ambda)                                                           'tf.math.multiply_27[0][0]']    
+                                                                                                  
+ tf.math.multiply_28 (TFOpLambd  (1, 49, 512)        0           ['tf.__operators__.add_14[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_6 (TFOpLambda)    (1, 49, 512)         0           ['tf.math.multiply_28[0][0]']    
+                                                                                                  
+ tf.__operators__.add_15 (TFOpL  (1, 49, 512)        0           ['tf.math.tanh_6[0][0]']         
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_29 (TFOpLambd  (1, 49, 512)        0           ['tf.__operators__.add_15[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_30 (TFOpLambd  (1, 49, 512)        0           ['tf.convert_to_tensor_6[0][0]', 
+ a)                                                               'tf.math.multiply_29[0][0]']    
+                                                                                                  
+ layer_normalization (LayerNorm  (1, 49, 512)        1024        ['tf.math.multiply_30[0][0]']    
+ alization)                                                                                       
+                                                                                                  
+ projection (Dense)             (1, 49, 768)         393984      ['layer_normalization[0][0]']    
+                                                                                                  
+ dropout (Dropout)              (1, 49, 768)         0           ['projection[0][0]']             
+                                                                                                  
+ tf.compat.v1.pad (TFOpLambda)  (1, 177, 768)        0           ['dropout[0][0]']                
+                                                                                                  
+ conv1d_7 (Conv1D)              (1, 50, 768)         4719360     ['tf.compat.v1.pad[0][0]']       
+                                                                                                  
+ tf.__operators__.getitem_3 (Sl  (1, 49, 768)        0           ['conv1d_7[0][0]']               
+ icingOpLambda)                                                                                   
+                                                                                                  
+ tf.convert_to_tensor_7 (TFOpLa  (1, 49, 768)        0           ['tf.__operators__.getitem_3[0][0
+ mbda)                                                           ]']                              
+                                                                                                  
+ tf.math.pow_7 (TFOpLambda)     (1, 49, 768)         0           ['tf.convert_to_tensor_7[0][0]'] 
+                                                                                                  
+ tf.math.multiply_31 (TFOpLambd  (1, 49, 768)        0           ['tf.math.pow_7[0][0]']          
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_16 (TFOpL  (1, 49, 768)        0           ['tf.convert_to_tensor_7[0][0]', 
+ ambda)                                                           'tf.math.multiply_31[0][0]']    
+                                                                                                  
+ tf.math.multiply_32 (TFOpLambd  (1, 49, 768)        0           ['tf.__operators__.add_16[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_7 (TFOpLambda)    (1, 49, 768)         0           ['tf.math.multiply_32[0][0]']    
+                                                                                                  
+ tf.__operators__.add_17 (TFOpL  (1, 49, 768)        0           ['tf.math.tanh_7[0][0]']         
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_33 (TFOpLambd  (1, 49, 768)        0           ['tf.__operators__.add_17[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_34 (TFOpLambd  (1, 49, 768)        0           ['tf.convert_to_tensor_7[0][0]', 
+ a)                                                               'tf.math.multiply_33[0][0]']    
+                                                                                                  
+ tf.__operators__.add_18 (TFOpL  (1, 49, 768)        0           ['dropout[0][0]',                
+ ambda)                                                           'tf.math.multiply_34[0][0]']    
+                                                                                                  
+ layer_normalization_1 (LayerNo  (1, 49, 768)        1536        ['tf.__operators__.add_18[0][0]']
+ rmalization)                                                                                     
+                                                                                                  
+ dropout_1 (Dropout)            (1, 49, 768)         0           ['layer_normalization_1[0][0]']  
+                                                                                                  
+ dense_1 (Dense)                (1, 49, 768)         590592      ['dropout_1[0][0]']              
+                                                                                                  
+ tf.math.multiply_35 (TFOpLambd  (1, 49, 768)        0           ['dense_1[0][0]']                
+ a)                                                                                               
+                                                                                                  
+ dense (Dense)                  (1, 49, 768)         590592      ['dropout_1[0][0]']              
+                                                                                                  
+ tf.reshape_2 (TFOpLambda)      (1, 49, 12, 64)      0           ['tf.math.multiply_35[0][0]']    
+                                                                                                  
+ tf.reshape (TFOpLambda)        (1, 49, 12, 64)      0           ['dense[0][0]']                  
+                                                                                                  
+ tf.compat.v1.transpose_2 (TFOp  (1, 12, 49, 64)     0           ['tf.reshape_2[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ tf.compat.v1.transpose (TFOpLa  (1, 12, 49, 64)     0           ['tf.reshape[0][0]']             
+ mbda)                                                                                            
+                                                                                                  
+ tf.reshape_3 (TFOpLambda)      (12, 49, 64)         0           ['tf.compat.v1.transpose_2[0][0]'
+                                                                 ]                                
+                                                                                                  
+ tf.reshape_4 (TFOpLambda)      (12, 49, 64)         0           ['tf.compat.v1.transpose[0][0]'] 
+                                                                                                  
+ tf.linalg.matmul (TFOpLambda)  (12, 49, 49)         0           ['tf.reshape_3[0][0]',           
+                                                                  'tf.reshape_4[0][0]']           
+                                                                                                  
+ dense_2 (Dense)                (1, 49, 768)         590592      ['dropout_1[0][0]']              
+                                                                                                  
+ tf.__operators__.add_19 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul[0][0]']       
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_1 (TFOpLambda)      (1, 49, 12, 64)      0           ['dense_2[0][0]']                
+                                                                                                  
+ tf.nn.softmax (TFOpLambda)     (12, 49, 49)         0           ['tf.__operators__.add_19[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_1 (TFOp  (1, 12, 49, 64)     0           ['tf.reshape_1[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ dropout_2 (Dropout)            (12, 49, 49)         0           ['tf.nn.softmax[0][0]']          
+                                                                                                  
+ tf.reshape_5 (TFOpLambda)      (12, 49, 64)         0           ['tf.compat.v1.transpose_1[0][0]'
+                                                                 ]                                
+                                                                                                  
+ tf.linalg.matmul_1 (TFOpLambda  (12, 49, 64)        0           ['dropout_2[0][0]',              
+ )                                                                'tf.reshape_5[0][0]']           
+                                                                                                  
+ tf.reshape_6 (TFOpLambda)      (1, 12, 49, 64)      0           ['tf.linalg.matmul_1[0][0]']     
+                                                                                                  
+ tf.compat.v1.transpose_3 (TFOp  (1, 49, 12, 64)     0           ['tf.reshape_6[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ tf.reshape_7 (TFOpLambda)      (1, 49, 768)         0           ['tf.compat.v1.transpose_3[0][0]'
+                                                                 ]                                
+                                                                                                  
+ dense_3 (Dense)                (1, 49, 768)         590592      ['tf.reshape_7[0][0]']           
+                                                                                                  
+ dropout_3 (Dropout)            (1, 49, 768)         0           ['dense_3[0][0]']                
+                                                                                                  
+ tf.__operators__.add_20 (TFOpL  (1, 49, 768)        0           ['dropout_1[0][0]',              
+ ambda)                                                           'dropout_3[0][0]']              
+                                                                                                  
+ layer_normalization_2 (LayerNo  (1, 49, 768)        1536        ['tf.__operators__.add_20[0][0]']
+ rmalization)                                                                                     
+                                                                                                  
+ dense_4 (Dense)                (1, 49, 3072)        2362368     ['layer_normalization_2[0][0]']  
+                                                                                                  
+ tf.convert_to_tensor_8 (TFOpLa  (1, 49, 3072)       0           ['dense_4[0][0]']                
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.pow_8 (TFOpLambda)     (1, 49, 3072)        0           ['tf.convert_to_tensor_8[0][0]'] 
+                                                                                                  
+ tf.math.multiply_36 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_8[0][0]']          
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_21 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_8[0][0]', 
+ ambda)                                                           'tf.math.multiply_36[0][0]']    
+                                                                                                  
+ tf.math.multiply_37 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_21[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_8 (TFOpLambda)    (1, 49, 3072)        0           ['tf.math.multiply_37[0][0]']    
+                                                                                                  
+ tf.__operators__.add_22 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_8[0][0]']         
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_38 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_22[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_39 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_8[0][0]', 
+ a)                                                               'tf.math.multiply_38[0][0]']    
+                                                                                                  
+ dropout_4 (Dropout)            (1, 49, 3072)        0           ['tf.math.multiply_39[0][0]']    
+                                                                                                  
+ dense_5 (Dense)                (1, 49, 768)         2360064     ['dropout_4[0][0]']              
+                                                                                                  
+ dropout_5 (Dropout)            (1, 49, 768)         0           ['dense_5[0][0]']                
+                                                                                                  
+ tf.__operators__.add_23 (TFOpL  (1, 49, 768)        0           ['layer_normalization_2[0][0]',  
+ ambda)                                                           'dropout_5[0][0]']              
+                                                                                                  
+ layer_normalization_3 (LayerNo  (1, 49, 768)        1536        ['tf.__operators__.add_23[0][0]']
+ rmalization)                                                                                     
+                                                                                                  
+ dense_7 (Dense)                (1, 49, 768)         590592      ['layer_normalization_3[0][0]']  
+                                                                                                  
+ tf.math.multiply_40 (TFOpLambd  (1, 49, 768)        0           ['dense_7[0][0]']                
+ a)                                                                                               
+                                                                                                  
+ dense_6 (Dense)                (1, 49, 768)         590592      ['layer_normalization_3[0][0]']  
+                                                                                                  
+ tf.reshape_11 (TFOpLambda)     (1, 49, 12, 64)      0           ['tf.math.multiply_40[0][0]']    
+                                                                                                  
+ tf.reshape_9 (TFOpLambda)      (1, 49, 12, 64)      0           ['dense_6[0][0]']                
+                                                                                                  
+ tf.compat.v1.transpose_6 (TFOp  (1, 12, 49, 64)     0           ['tf.reshape_11[0][0]']          
+ Lambda)                                                                                          
+                                                                                                  
+ tf.compat.v1.transpose_4 (TFOp  (1, 12, 49, 64)     0           ['tf.reshape_9[0][0]']           
+ Lambda)                                                                                          
+                                                                                                  
+ tf.reshape_12 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_6[0][0]'
+                                                                 ]                                
+                                                                                                  
+ tf.reshape_13 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_4[0][0]'
+                                                                 ]                                
+                                                                                                  
+ tf.linalg.matmul_2 (TFOpLambda  (12, 49, 49)        0           ['tf.reshape_12[0][0]',          
+ )                                                                'tf.reshape_13[0][0]']          
+                                                                                                  
+ dense_8 (Dense)                (1, 49, 768)         590592      ['layer_normalization_3[0][0]']  
+                                                                                                  
+ tf.__operators__.add_24 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul_2[0][0]']     
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_10 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_8[0][0]']                
+                                                                                                  
+ tf.nn.softmax_1 (TFOpLambda)   (12, 49, 49)         0           ['tf.__operators__.add_24[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_5 (TFOp  (1, 12, 49, 64)     0           ['tf.reshape_10[0][0]']          
+ Lambda)                                                                                          
+                                                                                                  
+ dropout_6 (Dropout)            (12, 49, 49)         0           ['tf.nn.softmax_1[0][0]']        
+                                                                                                  
+ tf.reshape_14 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_5[0][0]'
+                                                                 ]                                
+                                                                                                  
+ tf.linalg.matmul_3 (TFOpLambda  (12, 49, 64)        0           ['dropout_6[0][0]',              
+ )                                                                'tf.reshape_14[0][0]']          
+                                                                                                  
+ tf.reshape_15 (TFOpLambda)     (1, 12, 49, 64)      0           ['tf.linalg.matmul_3[0][0]']     
+                                                                                                  
+ tf.compat.v1.transpose_7 (TFOp  (1, 49, 12, 64)     0           ['tf.reshape_15[0][0]']          
+ Lambda)                                                                                          
+                                                                                                  
+ tf.reshape_16 (TFOpLambda)     (1, 49, 768)         0           ['tf.compat.v1.transpose_7[0][0]'
+                                                                 ]                                
+                                                                                                  
+ dense_9 (Dense)                (1, 49, 768)         590592      ['tf.reshape_16[0][0]']          
+                                                                                                  
+ dropout_7 (Dropout)            (1, 49, 768)         0           ['dense_9[0][0]']                
+                                                                                                  
+ tf.__operators__.add_25 (TFOpL  (1, 49, 768)        0           ['layer_normalization_3[0][0]',  
+ ambda)                                                           'dropout_7[0][0]']              
+                                                                                                  
+ layer_normalization_4 (LayerNo  (1, 49, 768)        1536        ['tf.__operators__.add_25[0][0]']
+ rmalization)                                                                                     
+                                                                                                  
+ dense_10 (Dense)               (1, 49, 3072)        2362368     ['layer_normalization_4[0][0]']  
+                                                                                                  
+ tf.convert_to_tensor_9 (TFOpLa  (1, 49, 3072)       0           ['dense_10[0][0]']               
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.pow_9 (TFOpLambda)     (1, 49, 3072)        0           ['tf.convert_to_tensor_9[0][0]'] 
+                                                                                                  
+ tf.math.multiply_41 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_9[0][0]']          
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_26 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_9[0][0]', 
+ ambda)                                                           'tf.math.multiply_41[0][0]']    
+                                                                                                  
+ tf.math.multiply_42 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_26[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_9 (TFOpLambda)    (1, 49, 3072)        0           ['tf.math.multiply_42[0][0]']    
+                                                                                                  
+ tf.__operators__.add_27 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_9[0][0]']         
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_43 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_27[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_44 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_9[0][0]', 
+ a)                                                               'tf.math.multiply_43[0][0]']    
+                                                                                                  
+ dropout_8 (Dropout)            (1, 49, 3072)        0           ['tf.math.multiply_44[0][0]']    
+                                                                                                  
+ dense_11 (Dense)               (1, 49, 768)         2360064     ['dropout_8[0][0]']              
+                                                                                                  
+ dropout_9 (Dropout)            (1, 49, 768)         0           ['dense_11[0][0]']               
+                                                                                                  
+ tf.__operators__.add_28 (TFOpL  (1, 49, 768)        0           ['layer_normalization_4[0][0]',  
+ ambda)                                                           'dropout_9[0][0]']              
+                                                                                                  
+ layer_normalization_5 (LayerNo  (1, 49, 768)        1536        ['tf.__operators__.add_28[0][0]']
+ rmalization)                                                                                     
+                                                                                                  
+ dense_13 (Dense)               (1, 49, 768)         590592      ['layer_normalization_5[0][0]']  
+                                                                                                  
+ tf.math.multiply_45 (TFOpLambd  (1, 49, 768)        0           ['dense_13[0][0]']               
+ a)                                                                                               
+                                                                                                  
+ dense_12 (Dense)               (1, 49, 768)         590592      ['layer_normalization_5[0][0]']  
+                                                                                                  
+ tf.reshape_20 (TFOpLambda)     (1, 49, 12, 64)      0           ['tf.math.multiply_45[0][0]']    
+                                                                                                  
+ tf.reshape_18 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_12[0][0]']               
+                                                                                                  
+ tf.compat.v1.transpose_10 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_20[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.compat.v1.transpose_8 (TFOp  (1, 12, 49, 64)     0           ['tf.reshape_18[0][0]']          
+ Lambda)                                                                                          
+                                                                                                  
+ tf.reshape_21 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_10[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.reshape_22 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_8[0][0]'
+                                                                 ]                                
+                                                                                                  
+ tf.linalg.matmul_4 (TFOpLambda  (12, 49, 49)        0           ['tf.reshape_21[0][0]',          
+ )                                                                'tf.reshape_22[0][0]']          
+                                                                                                  
+ dense_14 (Dense)               (1, 49, 768)         590592      ['layer_normalization_5[0][0]']  
+                                                                                                  
+ tf.__operators__.add_29 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul_4[0][0]']     
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_19 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_14[0][0]']               
+                                                                                                  
+ tf.nn.softmax_2 (TFOpLambda)   (12, 49, 49)         0           ['tf.__operators__.add_29[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_9 (TFOp  (1, 12, 49, 64)     0           ['tf.reshape_19[0][0]']          
+ Lambda)                                                                                          
+                                                                                                  
+ dropout_10 (Dropout)           (12, 49, 49)         0           ['tf.nn.softmax_2[0][0]']        
+                                                                                                  
+ tf.reshape_23 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_9[0][0]'
+                                                                 ]                                
+                                                                                                  
+ tf.linalg.matmul_5 (TFOpLambda  (12, 49, 64)        0           ['dropout_10[0][0]',             
+ )                                                                'tf.reshape_23[0][0]']          
+                                                                                                  
+ tf.reshape_24 (TFOpLambda)     (1, 12, 49, 64)      0           ['tf.linalg.matmul_5[0][0]']     
+                                                                                                  
+ tf.compat.v1.transpose_11 (TFO  (1, 49, 12, 64)     0           ['tf.reshape_24[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_25 (TFOpLambda)     (1, 49, 768)         0           ['tf.compat.v1.transpose_11[0][0]
+                                                                 ']                               
+                                                                                                  
+ dense_15 (Dense)               (1, 49, 768)         590592      ['tf.reshape_25[0][0]']          
+                                                                                                  
+ dropout_11 (Dropout)           (1, 49, 768)         0           ['dense_15[0][0]']               
+                                                                                                  
+ tf.__operators__.add_30 (TFOpL  (1, 49, 768)        0           ['layer_normalization_5[0][0]',  
+ ambda)                                                           'dropout_11[0][0]']             
+                                                                                                  
+ layer_normalization_6 (LayerNo  (1, 49, 768)        1536        ['tf.__operators__.add_30[0][0]']
+ rmalization)                                                                                     
+                                                                                                  
+ dense_16 (Dense)               (1, 49, 3072)        2362368     ['layer_normalization_6[0][0]']  
+                                                                                                  
+ tf.convert_to_tensor_10 (TFOpL  (1, 49, 3072)       0           ['dense_16[0][0]']               
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.pow_10 (TFOpLambda)    (1, 49, 3072)        0           ['tf.convert_to_tensor_10[0][0]']
+                                                                                                  
+ tf.math.multiply_46 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_10[0][0]']         
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_31 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_10[0][0]',
+ ambda)                                                           'tf.math.multiply_46[0][0]']    
+                                                                                                  
+ tf.math.multiply_47 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_31[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_10 (TFOpLambda)   (1, 49, 3072)        0           ['tf.math.multiply_47[0][0]']    
+                                                                                                  
+ tf.__operators__.add_32 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_10[0][0]']        
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_48 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_32[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_49 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_10[0][0]',
+ a)                                                               'tf.math.multiply_48[0][0]']    
+                                                                                                  
+ dropout_12 (Dropout)           (1, 49, 3072)        0           ['tf.math.multiply_49[0][0]']    
+                                                                                                  
+ dense_17 (Dense)               (1, 49, 768)         2360064     ['dropout_12[0][0]']             
+                                                                                                  
+ dropout_13 (Dropout)           (1, 49, 768)         0           ['dense_17[0][0]']               
+                                                                                                  
+ tf.__operators__.add_33 (TFOpL  (1, 49, 768)        0           ['layer_normalization_6[0][0]',  
+ ambda)                                                           'dropout_13[0][0]']             
+                                                                                                  
+ layer_normalization_7 (LayerNo  (1, 49, 768)        1536        ['tf.__operators__.add_33[0][0]']
+ rmalization)                                                                                     
+                                                                                                  
+ dense_19 (Dense)               (1, 49, 768)         590592      ['layer_normalization_7[0][0]']  
+                                                                                                  
+ tf.math.multiply_50 (TFOpLambd  (1, 49, 768)        0           ['dense_19[0][0]']               
+ a)                                                                                               
+                                                                                                  
+ dense_18 (Dense)               (1, 49, 768)         590592      ['layer_normalization_7[0][0]']  
+                                                                                                  
+ tf.reshape_29 (TFOpLambda)     (1, 49, 12, 64)      0           ['tf.math.multiply_50[0][0]']    
+                                                                                                  
+ tf.reshape_27 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_18[0][0]']               
+                                                                                                  
+ tf.compat.v1.transpose_14 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_29[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.compat.v1.transpose_12 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_27[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_30 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_14[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.reshape_31 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_12[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_6 (TFOpLambda  (12, 49, 49)        0           ['tf.reshape_30[0][0]',          
+ )                                                                'tf.reshape_31[0][0]']          
+                                                                                                  
+ dense_20 (Dense)               (1, 49, 768)         590592      ['layer_normalization_7[0][0]']  
+                                                                                                  
+ tf.__operators__.add_34 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul_6[0][0]']     
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_28 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_20[0][0]']               
+                                                                                                  
+ tf.nn.softmax_3 (TFOpLambda)   (12, 49, 49)         0           ['tf.__operators__.add_34[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_13 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_28[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ dropout_14 (Dropout)           (12, 49, 49)         0           ['tf.nn.softmax_3[0][0]']        
+                                                                                                  
+ tf.reshape_32 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_13[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_7 (TFOpLambda  (12, 49, 64)        0           ['dropout_14[0][0]',             
+ )                                                                'tf.reshape_32[0][0]']          
+                                                                                                  
+ tf.reshape_33 (TFOpLambda)     (1, 12, 49, 64)      0           ['tf.linalg.matmul_7[0][0]']     
+                                                                                                  
+ tf.compat.v1.transpose_15 (TFO  (1, 49, 12, 64)     0           ['tf.reshape_33[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_34 (TFOpLambda)     (1, 49, 768)         0           ['tf.compat.v1.transpose_15[0][0]
+                                                                 ']                               
+                                                                                                  
+ dense_21 (Dense)               (1, 49, 768)         590592      ['tf.reshape_34[0][0]']          
+                                                                                                  
+ dropout_15 (Dropout)           (1, 49, 768)         0           ['dense_21[0][0]']               
+                                                                                                  
+ tf.__operators__.add_35 (TFOpL  (1, 49, 768)        0           ['layer_normalization_7[0][0]',  
+ ambda)                                                           'dropout_15[0][0]']             
+                                                                                                  
+ layer_normalization_8 (LayerNo  (1, 49, 768)        1536        ['tf.__operators__.add_35[0][0]']
+ rmalization)                                                                                     
+                                                                                                  
+ dense_22 (Dense)               (1, 49, 3072)        2362368     ['layer_normalization_8[0][0]']  
+                                                                                                  
+ tf.convert_to_tensor_11 (TFOpL  (1, 49, 3072)       0           ['dense_22[0][0]']               
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.pow_11 (TFOpLambda)    (1, 49, 3072)        0           ['tf.convert_to_tensor_11[0][0]']
+                                                                                                  
+ tf.math.multiply_51 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_11[0][0]']         
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_36 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_11[0][0]',
+ ambda)                                                           'tf.math.multiply_51[0][0]']    
+                                                                                                  
+ tf.math.multiply_52 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_36[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_11 (TFOpLambda)   (1, 49, 3072)        0           ['tf.math.multiply_52[0][0]']    
+                                                                                                  
+ tf.__operators__.add_37 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_11[0][0]']        
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_53 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_37[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_54 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_11[0][0]',
+ a)                                                               'tf.math.multiply_53[0][0]']    
+                                                                                                  
+ dropout_16 (Dropout)           (1, 49, 3072)        0           ['tf.math.multiply_54[0][0]']    
+                                                                                                  
+ dense_23 (Dense)               (1, 49, 768)         2360064     ['dropout_16[0][0]']             
+                                                                                                  
+ dropout_17 (Dropout)           (1, 49, 768)         0           ['dense_23[0][0]']               
+                                                                                                  
+ tf.__operators__.add_38 (TFOpL  (1, 49, 768)        0           ['layer_normalization_8[0][0]',  
+ ambda)                                                           'dropout_17[0][0]']             
+                                                                                                  
+ layer_normalization_9 (LayerNo  (1, 49, 768)        1536        ['tf.__operators__.add_38[0][0]']
+ rmalization)                                                                                     
+                                                                                                  
+ dense_25 (Dense)               (1, 49, 768)         590592      ['layer_normalization_9[0][0]']  
+                                                                                                  
+ tf.math.multiply_55 (TFOpLambd  (1, 49, 768)        0           ['dense_25[0][0]']               
+ a)                                                                                               
+                                                                                                  
+ dense_24 (Dense)               (1, 49, 768)         590592      ['layer_normalization_9[0][0]']  
+                                                                                                  
+ tf.reshape_38 (TFOpLambda)     (1, 49, 12, 64)      0           ['tf.math.multiply_55[0][0]']    
+                                                                                                  
+ tf.reshape_36 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_24[0][0]']               
+                                                                                                  
+ tf.compat.v1.transpose_18 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_38[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.compat.v1.transpose_16 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_36[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_39 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_18[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.reshape_40 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_16[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_8 (TFOpLambda  (12, 49, 49)        0           ['tf.reshape_39[0][0]',          
+ )                                                                'tf.reshape_40[0][0]']          
+                                                                                                  
+ dense_26 (Dense)               (1, 49, 768)         590592      ['layer_normalization_9[0][0]']  
+                                                                                                  
+ tf.__operators__.add_39 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul_8[0][0]']     
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_37 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_26[0][0]']               
+                                                                                                  
+ tf.nn.softmax_4 (TFOpLambda)   (12, 49, 49)         0           ['tf.__operators__.add_39[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_17 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_37[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ dropout_18 (Dropout)           (12, 49, 49)         0           ['tf.nn.softmax_4[0][0]']        
+                                                                                                  
+ tf.reshape_41 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_17[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_9 (TFOpLambda  (12, 49, 64)        0           ['dropout_18[0][0]',             
+ )                                                                'tf.reshape_41[0][0]']          
+                                                                                                  
+ tf.reshape_42 (TFOpLambda)     (1, 12, 49, 64)      0           ['tf.linalg.matmul_9[0][0]']     
+                                                                                                  
+ tf.compat.v1.transpose_19 (TFO  (1, 49, 12, 64)     0           ['tf.reshape_42[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_43 (TFOpLambda)     (1, 49, 768)         0           ['tf.compat.v1.transpose_19[0][0]
+                                                                 ']                               
+                                                                                                  
+ dense_27 (Dense)               (1, 49, 768)         590592      ['tf.reshape_43[0][0]']          
+                                                                                                  
+ dropout_19 (Dropout)           (1, 49, 768)         0           ['dense_27[0][0]']               
+                                                                                                  
+ tf.__operators__.add_40 (TFOpL  (1, 49, 768)        0           ['layer_normalization_9[0][0]',  
+ ambda)                                                           'dropout_19[0][0]']             
+                                                                                                  
+ layer_normalization_10 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_40[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_28 (Dense)               (1, 49, 3072)        2362368     ['layer_normalization_10[0][0]'] 
+                                                                                                  
+ tf.convert_to_tensor_12 (TFOpL  (1, 49, 3072)       0           ['dense_28[0][0]']               
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.pow_12 (TFOpLambda)    (1, 49, 3072)        0           ['tf.convert_to_tensor_12[0][0]']
+                                                                                                  
+ tf.math.multiply_56 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_12[0][0]']         
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_41 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_12[0][0]',
+ ambda)                                                           'tf.math.multiply_56[0][0]']    
+                                                                                                  
+ tf.math.multiply_57 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_41[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_12 (TFOpLambda)   (1, 49, 3072)        0           ['tf.math.multiply_57[0][0]']    
+                                                                                                  
+ tf.__operators__.add_42 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_12[0][0]']        
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_58 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_42[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_59 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_12[0][0]',
+ a)                                                               'tf.math.multiply_58[0][0]']    
+                                                                                                  
+ dropout_20 (Dropout)           (1, 49, 3072)        0           ['tf.math.multiply_59[0][0]']    
+                                                                                                  
+ dense_29 (Dense)               (1, 49, 768)         2360064     ['dropout_20[0][0]']             
+                                                                                                  
+ dropout_21 (Dropout)           (1, 49, 768)         0           ['dense_29[0][0]']               
+                                                                                                  
+ tf.__operators__.add_43 (TFOpL  (1, 49, 768)        0           ['layer_normalization_10[0][0]', 
+ ambda)                                                           'dropout_21[0][0]']             
+                                                                                                  
+ layer_normalization_11 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_43[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_31 (Dense)               (1, 49, 768)         590592      ['layer_normalization_11[0][0]'] 
+                                                                                                  
+ tf.math.multiply_60 (TFOpLambd  (1, 49, 768)        0           ['dense_31[0][0]']               
+ a)                                                                                               
+                                                                                                  
+ dense_30 (Dense)               (1, 49, 768)         590592      ['layer_normalization_11[0][0]'] 
+                                                                                                  
+ tf.reshape_47 (TFOpLambda)     (1, 49, 12, 64)      0           ['tf.math.multiply_60[0][0]']    
+                                                                                                  
+ tf.reshape_45 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_30[0][0]']               
+                                                                                                  
+ tf.compat.v1.transpose_22 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_47[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.compat.v1.transpose_20 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_45[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_48 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_22[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.reshape_49 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_20[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_10 (TFOpLambd  (12, 49, 49)        0           ['tf.reshape_48[0][0]',          
+ a)                                                               'tf.reshape_49[0][0]']          
+                                                                                                  
+ dense_32 (Dense)               (1, 49, 768)         590592      ['layer_normalization_11[0][0]'] 
+                                                                                                  
+ tf.__operators__.add_44 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul_10[0][0]']    
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_46 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_32[0][0]']               
+                                                                                                  
+ tf.nn.softmax_5 (TFOpLambda)   (12, 49, 49)         0           ['tf.__operators__.add_44[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_21 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_46[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ dropout_22 (Dropout)           (12, 49, 49)         0           ['tf.nn.softmax_5[0][0]']        
+                                                                                                  
+ tf.reshape_50 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_21[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_11 (TFOpLambd  (12, 49, 64)        0           ['dropout_22[0][0]',             
+ a)                                                               'tf.reshape_50[0][0]']          
+                                                                                                  
+ tf.reshape_51 (TFOpLambda)     (1, 12, 49, 64)      0           ['tf.linalg.matmul_11[0][0]']    
+                                                                                                  
+ tf.compat.v1.transpose_23 (TFO  (1, 49, 12, 64)     0           ['tf.reshape_51[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_52 (TFOpLambda)     (1, 49, 768)         0           ['tf.compat.v1.transpose_23[0][0]
+                                                                 ']                               
+                                                                                                  
+ dense_33 (Dense)               (1, 49, 768)         590592      ['tf.reshape_52[0][0]']          
+                                                                                                  
+ dropout_23 (Dropout)           (1, 49, 768)         0           ['dense_33[0][0]']               
+                                                                                                  
+ tf.__operators__.add_45 (TFOpL  (1, 49, 768)        0           ['layer_normalization_11[0][0]', 
+ ambda)                                                           'dropout_23[0][0]']             
+                                                                                                  
+ layer_normalization_12 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_45[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_34 (Dense)               (1, 49, 3072)        2362368     ['layer_normalization_12[0][0]'] 
+                                                                                                  
+ tf.convert_to_tensor_13 (TFOpL  (1, 49, 3072)       0           ['dense_34[0][0]']               
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.pow_13 (TFOpLambda)    (1, 49, 3072)        0           ['tf.convert_to_tensor_13[0][0]']
+                                                                                                  
+ tf.math.multiply_61 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_13[0][0]']         
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_46 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_13[0][0]',
+ ambda)                                                           'tf.math.multiply_61[0][0]']    
+                                                                                                  
+ tf.math.multiply_62 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_46[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_13 (TFOpLambda)   (1, 49, 3072)        0           ['tf.math.multiply_62[0][0]']    
+                                                                                                  
+ tf.__operators__.add_47 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_13[0][0]']        
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_63 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_47[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_64 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_13[0][0]',
+ a)                                                               'tf.math.multiply_63[0][0]']    
+                                                                                                  
+ dropout_24 (Dropout)           (1, 49, 3072)        0           ['tf.math.multiply_64[0][0]']    
+                                                                                                  
+ dense_35 (Dense)               (1, 49, 768)         2360064     ['dropout_24[0][0]']             
+                                                                                                  
+ dropout_25 (Dropout)           (1, 49, 768)         0           ['dense_35[0][0]']               
+                                                                                                  
+ tf.__operators__.add_48 (TFOpL  (1, 49, 768)        0           ['layer_normalization_12[0][0]', 
+ ambda)                                                           'dropout_25[0][0]']             
+                                                                                                  
+ layer_normalization_13 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_48[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_37 (Dense)               (1, 49, 768)         590592      ['layer_normalization_13[0][0]'] 
+                                                                                                  
+ tf.math.multiply_65 (TFOpLambd  (1, 49, 768)        0           ['dense_37[0][0]']               
+ a)                                                                                               
+                                                                                                  
+ dense_36 (Dense)               (1, 49, 768)         590592      ['layer_normalization_13[0][0]'] 
+                                                                                                  
+ tf.reshape_56 (TFOpLambda)     (1, 49, 12, 64)      0           ['tf.math.multiply_65[0][0]']    
+                                                                                                  
+ tf.reshape_54 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_36[0][0]']               
+                                                                                                  
+ tf.compat.v1.transpose_26 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_56[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.compat.v1.transpose_24 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_54[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_57 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_26[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.reshape_58 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_24[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_12 (TFOpLambd  (12, 49, 49)        0           ['tf.reshape_57[0][0]',          
+ a)                                                               'tf.reshape_58[0][0]']          
+                                                                                                  
+ dense_38 (Dense)               (1, 49, 768)         590592      ['layer_normalization_13[0][0]'] 
+                                                                                                  
+ tf.__operators__.add_49 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul_12[0][0]']    
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_55 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_38[0][0]']               
+                                                                                                  
+ tf.nn.softmax_6 (TFOpLambda)   (12, 49, 49)         0           ['tf.__operators__.add_49[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_25 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_55[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ dropout_26 (Dropout)           (12, 49, 49)         0           ['tf.nn.softmax_6[0][0]']        
+                                                                                                  
+ tf.reshape_59 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_25[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_13 (TFOpLambd  (12, 49, 64)        0           ['dropout_26[0][0]',             
+ a)                                                               'tf.reshape_59[0][0]']          
+                                                                                                  
+ tf.reshape_60 (TFOpLambda)     (1, 12, 49, 64)      0           ['tf.linalg.matmul_13[0][0]']    
+                                                                                                  
+ tf.compat.v1.transpose_27 (TFO  (1, 49, 12, 64)     0           ['tf.reshape_60[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_61 (TFOpLambda)     (1, 49, 768)         0           ['tf.compat.v1.transpose_27[0][0]
+                                                                 ']                               
+                                                                                                  
+ dense_39 (Dense)               (1, 49, 768)         590592      ['tf.reshape_61[0][0]']          
+                                                                                                  
+ dropout_27 (Dropout)           (1, 49, 768)         0           ['dense_39[0][0]']               
+                                                                                                  
+ tf.__operators__.add_50 (TFOpL  (1, 49, 768)        0           ['layer_normalization_13[0][0]', 
+ ambda)                                                           'dropout_27[0][0]']             
+                                                                                                  
+ layer_normalization_14 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_50[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_40 (Dense)               (1, 49, 3072)        2362368     ['layer_normalization_14[0][0]'] 
+                                                                                                  
+ tf.convert_to_tensor_14 (TFOpL  (1, 49, 3072)       0           ['dense_40[0][0]']               
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.pow_14 (TFOpLambda)    (1, 49, 3072)        0           ['tf.convert_to_tensor_14[0][0]']
+                                                                                                  
+ tf.math.multiply_66 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_14[0][0]']         
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_51 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_14[0][0]',
+ ambda)                                                           'tf.math.multiply_66[0][0]']    
+                                                                                                  
+ tf.math.multiply_67 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_51[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_14 (TFOpLambda)   (1, 49, 3072)        0           ['tf.math.multiply_67[0][0]']    
+                                                                                                  
+ tf.__operators__.add_52 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_14[0][0]']        
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_68 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_52[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_69 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_14[0][0]',
+ a)                                                               'tf.math.multiply_68[0][0]']    
+                                                                                                  
+ dropout_28 (Dropout)           (1, 49, 3072)        0           ['tf.math.multiply_69[0][0]']    
+                                                                                                  
+ dense_41 (Dense)               (1, 49, 768)         2360064     ['dropout_28[0][0]']             
+                                                                                                  
+ dropout_29 (Dropout)           (1, 49, 768)         0           ['dense_41[0][0]']               
+                                                                                                  
+ tf.__operators__.add_53 (TFOpL  (1, 49, 768)        0           ['layer_normalization_14[0][0]', 
+ ambda)                                                           'dropout_29[0][0]']             
+                                                                                                  
+ layer_normalization_15 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_53[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_43 (Dense)               (1, 49, 768)         590592      ['layer_normalization_15[0][0]'] 
+                                                                                                  
+ tf.math.multiply_70 (TFOpLambd  (1, 49, 768)        0           ['dense_43[0][0]']               
+ a)                                                                                               
+                                                                                                  
+ dense_42 (Dense)               (1, 49, 768)         590592      ['layer_normalization_15[0][0]'] 
+                                                                                                  
+ tf.reshape_65 (TFOpLambda)     (1, 49, 12, 64)      0           ['tf.math.multiply_70[0][0]']    
+                                                                                                  
+ tf.reshape_63 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_42[0][0]']               
+                                                                                                  
+ tf.compat.v1.transpose_30 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_65[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.compat.v1.transpose_28 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_63[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_66 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_30[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.reshape_67 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_28[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_14 (TFOpLambd  (12, 49, 49)        0           ['tf.reshape_66[0][0]',          
+ a)                                                               'tf.reshape_67[0][0]']          
+                                                                                                  
+ dense_44 (Dense)               (1, 49, 768)         590592      ['layer_normalization_15[0][0]'] 
+                                                                                                  
+ tf.__operators__.add_54 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul_14[0][0]']    
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_64 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_44[0][0]']               
+                                                                                                  
+ tf.nn.softmax_7 (TFOpLambda)   (12, 49, 49)         0           ['tf.__operators__.add_54[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_29 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_64[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ dropout_30 (Dropout)           (12, 49, 49)         0           ['tf.nn.softmax_7[0][0]']        
+                                                                                                  
+ tf.reshape_68 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_29[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_15 (TFOpLambd  (12, 49, 64)        0           ['dropout_30[0][0]',             
+ a)                                                               'tf.reshape_68[0][0]']          
+                                                                                                  
+ tf.reshape_69 (TFOpLambda)     (1, 12, 49, 64)      0           ['tf.linalg.matmul_15[0][0]']    
+                                                                                                  
+ tf.compat.v1.transpose_31 (TFO  (1, 49, 12, 64)     0           ['tf.reshape_69[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_70 (TFOpLambda)     (1, 49, 768)         0           ['tf.compat.v1.transpose_31[0][0]
+                                                                 ']                               
+                                                                                                  
+ dense_45 (Dense)               (1, 49, 768)         590592      ['tf.reshape_70[0][0]']          
+                                                                                                  
+ dropout_31 (Dropout)           (1, 49, 768)         0           ['dense_45[0][0]']               
+                                                                                                  
+ tf.__operators__.add_55 (TFOpL  (1, 49, 768)        0           ['layer_normalization_15[0][0]', 
+ ambda)                                                           'dropout_31[0][0]']             
+                                                                                                  
+ layer_normalization_16 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_55[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_46 (Dense)               (1, 49, 3072)        2362368     ['layer_normalization_16[0][0]'] 
+                                                                                                  
+ tf.convert_to_tensor_15 (TFOpL  (1, 49, 3072)       0           ['dense_46[0][0]']               
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.pow_15 (TFOpLambda)    (1, 49, 3072)        0           ['tf.convert_to_tensor_15[0][0]']
+                                                                                                  
+ tf.math.multiply_71 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_15[0][0]']         
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_56 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_15[0][0]',
+ ambda)                                                           'tf.math.multiply_71[0][0]']    
+                                                                                                  
+ tf.math.multiply_72 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_56[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_15 (TFOpLambda)   (1, 49, 3072)        0           ['tf.math.multiply_72[0][0]']    
+                                                                                                  
+ tf.__operators__.add_57 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_15[0][0]']        
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_73 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_57[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_74 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_15[0][0]',
+ a)                                                               'tf.math.multiply_73[0][0]']    
+                                                                                                  
+ dropout_32 (Dropout)           (1, 49, 3072)        0           ['tf.math.multiply_74[0][0]']    
+                                                                                                  
+ dense_47 (Dense)               (1, 49, 768)         2360064     ['dropout_32[0][0]']             
+                                                                                                  
+ dropout_33 (Dropout)           (1, 49, 768)         0           ['dense_47[0][0]']               
+                                                                                                  
+ tf.__operators__.add_58 (TFOpL  (1, 49, 768)        0           ['layer_normalization_16[0][0]', 
+ ambda)                                                           'dropout_33[0][0]']             
+                                                                                                  
+ layer_normalization_17 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_58[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_49 (Dense)               (1, 49, 768)         590592      ['layer_normalization_17[0][0]'] 
+                                                                                                  
+ tf.math.multiply_75 (TFOpLambd  (1, 49, 768)        0           ['dense_49[0][0]']               
+ a)                                                                                               
+                                                                                                  
+ dense_48 (Dense)               (1, 49, 768)         590592      ['layer_normalization_17[0][0]'] 
+                                                                                                  
+ tf.reshape_74 (TFOpLambda)     (1, 49, 12, 64)      0           ['tf.math.multiply_75[0][0]']    
+                                                                                                  
+ tf.reshape_72 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_48[0][0]']               
+                                                                                                  
+ tf.compat.v1.transpose_34 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_74[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.compat.v1.transpose_32 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_72[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_75 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_34[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.reshape_76 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_32[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_16 (TFOpLambd  (12, 49, 49)        0           ['tf.reshape_75[0][0]',          
+ a)                                                               'tf.reshape_76[0][0]']          
+                                                                                                  
+ dense_50 (Dense)               (1, 49, 768)         590592      ['layer_normalization_17[0][0]'] 
+                                                                                                  
+ tf.__operators__.add_59 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul_16[0][0]']    
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_73 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_50[0][0]']               
+                                                                                                  
+ tf.nn.softmax_8 (TFOpLambda)   (12, 49, 49)         0           ['tf.__operators__.add_59[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_33 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_73[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ dropout_34 (Dropout)           (12, 49, 49)         0           ['tf.nn.softmax_8[0][0]']        
+                                                                                                  
+ tf.reshape_77 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_33[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_17 (TFOpLambd  (12, 49, 64)        0           ['dropout_34[0][0]',             
+ a)                                                               'tf.reshape_77[0][0]']          
+                                                                                                  
+ tf.reshape_78 (TFOpLambda)     (1, 12, 49, 64)      0           ['tf.linalg.matmul_17[0][0]']    
+                                                                                                  
+ tf.compat.v1.transpose_35 (TFO  (1, 49, 12, 64)     0           ['tf.reshape_78[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_79 (TFOpLambda)     (1, 49, 768)         0           ['tf.compat.v1.transpose_35[0][0]
+                                                                 ']                               
+                                                                                                  
+ dense_51 (Dense)               (1, 49, 768)         590592      ['tf.reshape_79[0][0]']          
+                                                                                                  
+ dropout_35 (Dropout)           (1, 49, 768)         0           ['dense_51[0][0]']               
+                                                                                                  
+ tf.__operators__.add_60 (TFOpL  (1, 49, 768)        0           ['layer_normalization_17[0][0]', 
+ ambda)                                                           'dropout_35[0][0]']             
+                                                                                                  
+ layer_normalization_18 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_60[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_52 (Dense)               (1, 49, 3072)        2362368     ['layer_normalization_18[0][0]'] 
+                                                                                                  
+ tf.convert_to_tensor_16 (TFOpL  (1, 49, 3072)       0           ['dense_52[0][0]']               
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.pow_16 (TFOpLambda)    (1, 49, 3072)        0           ['tf.convert_to_tensor_16[0][0]']
+                                                                                                  
+ tf.math.multiply_76 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_16[0][0]']         
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_61 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_16[0][0]',
+ ambda)                                                           'tf.math.multiply_76[0][0]']    
+                                                                                                  
+ tf.math.multiply_77 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_61[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_16 (TFOpLambda)   (1, 49, 3072)        0           ['tf.math.multiply_77[0][0]']    
+                                                                                                  
+ tf.__operators__.add_62 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_16[0][0]']        
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_78 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_62[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_79 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_16[0][0]',
+ a)                                                               'tf.math.multiply_78[0][0]']    
+                                                                                                  
+ dropout_36 (Dropout)           (1, 49, 3072)        0           ['tf.math.multiply_79[0][0]']    
+                                                                                                  
+ dense_53 (Dense)               (1, 49, 768)         2360064     ['dropout_36[0][0]']             
+                                                                                                  
+ dropout_37 (Dropout)           (1, 49, 768)         0           ['dense_53[0][0]']               
+                                                                                                  
+ tf.__operators__.add_63 (TFOpL  (1, 49, 768)        0           ['layer_normalization_18[0][0]', 
+ ambda)                                                           'dropout_37[0][0]']             
+                                                                                                  
+ layer_normalization_19 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_63[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_55 (Dense)               (1, 49, 768)         590592      ['layer_normalization_19[0][0]'] 
+                                                                                                  
+ tf.math.multiply_80 (TFOpLambd  (1, 49, 768)        0           ['dense_55[0][0]']               
+ a)                                                                                               
+                                                                                                  
+ dense_54 (Dense)               (1, 49, 768)         590592      ['layer_normalization_19[0][0]'] 
+                                                                                                  
+ tf.reshape_83 (TFOpLambda)     (1, 49, 12, 64)      0           ['tf.math.multiply_80[0][0]']    
+                                                                                                  
+ tf.reshape_81 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_54[0][0]']               
+                                                                                                  
+ tf.compat.v1.transpose_38 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_83[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.compat.v1.transpose_36 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_81[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_84 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_38[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.reshape_85 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_36[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_18 (TFOpLambd  (12, 49, 49)        0           ['tf.reshape_84[0][0]',          
+ a)                                                               'tf.reshape_85[0][0]']          
+                                                                                                  
+ dense_56 (Dense)               (1, 49, 768)         590592      ['layer_normalization_19[0][0]'] 
+                                                                                                  
+ tf.__operators__.add_64 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul_18[0][0]']    
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_82 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_56[0][0]']               
+                                                                                                  
+ tf.nn.softmax_9 (TFOpLambda)   (12, 49, 49)         0           ['tf.__operators__.add_64[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_37 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_82[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ dropout_38 (Dropout)           (12, 49, 49)         0           ['tf.nn.softmax_9[0][0]']        
+                                                                                                  
+ tf.reshape_86 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_37[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_19 (TFOpLambd  (12, 49, 64)        0           ['dropout_38[0][0]',             
+ a)                                                               'tf.reshape_86[0][0]']          
+                                                                                                  
+ tf.reshape_87 (TFOpLambda)     (1, 12, 49, 64)      0           ['tf.linalg.matmul_19[0][0]']    
+                                                                                                  
+ tf.compat.v1.transpose_39 (TFO  (1, 49, 12, 64)     0           ['tf.reshape_87[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_88 (TFOpLambda)     (1, 49, 768)         0           ['tf.compat.v1.transpose_39[0][0]
+                                                                 ']                               
+                                                                                                  
+ dense_57 (Dense)               (1, 49, 768)         590592      ['tf.reshape_88[0][0]']          
+                                                                                                  
+ dropout_39 (Dropout)           (1, 49, 768)         0           ['dense_57[0][0]']               
+                                                                                                  
+ tf.__operators__.add_65 (TFOpL  (1, 49, 768)        0           ['layer_normalization_19[0][0]', 
+ ambda)                                                           'dropout_39[0][0]']             
+                                                                                                  
+ layer_normalization_20 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_65[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_58 (Dense)               (1, 49, 3072)        2362368     ['layer_normalization_20[0][0]'] 
+                                                                                                  
+ tf.convert_to_tensor_17 (TFOpL  (1, 49, 3072)       0           ['dense_58[0][0]']               
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.pow_17 (TFOpLambda)    (1, 49, 3072)        0           ['tf.convert_to_tensor_17[0][0]']
+                                                                                                  
+ tf.math.multiply_81 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_17[0][0]']         
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_66 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_17[0][0]',
+ ambda)                                                           'tf.math.multiply_81[0][0]']    
+                                                                                                  
+ tf.math.multiply_82 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_66[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_17 (TFOpLambda)   (1, 49, 3072)        0           ['tf.math.multiply_82[0][0]']    
+                                                                                                  
+ tf.__operators__.add_67 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_17[0][0]']        
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_83 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_67[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_84 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_17[0][0]',
+ a)                                                               'tf.math.multiply_83[0][0]']    
+                                                                                                  
+ dropout_40 (Dropout)           (1, 49, 3072)        0           ['tf.math.multiply_84[0][0]']    
+                                                                                                  
+ dense_59 (Dense)               (1, 49, 768)         2360064     ['dropout_40[0][0]']             
+                                                                                                  
+ dropout_41 (Dropout)           (1, 49, 768)         0           ['dense_59[0][0]']               
+                                                                                                  
+ tf.__operators__.add_68 (TFOpL  (1, 49, 768)        0           ['layer_normalization_20[0][0]', 
+ ambda)                                                           'dropout_41[0][0]']             
+                                                                                                  
+ layer_normalization_21 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_68[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_61 (Dense)               (1, 49, 768)         590592      ['layer_normalization_21[0][0]'] 
+                                                                                                  
+ tf.math.multiply_85 (TFOpLambd  (1, 49, 768)        0           ['dense_61[0][0]']               
+ a)                                                                                               
+                                                                                                  
+ dense_60 (Dense)               (1, 49, 768)         590592      ['layer_normalization_21[0][0]'] 
+                                                                                                  
+ tf.reshape_92 (TFOpLambda)     (1, 49, 12, 64)      0           ['tf.math.multiply_85[0][0]']    
+                                                                                                  
+ tf.reshape_90 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_60[0][0]']               
+                                                                                                  
+ tf.compat.v1.transpose_42 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_92[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.compat.v1.transpose_40 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_90[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_93 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_42[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.reshape_94 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_40[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_20 (TFOpLambd  (12, 49, 49)        0           ['tf.reshape_93[0][0]',          
+ a)                                                               'tf.reshape_94[0][0]']          
+                                                                                                  
+ dense_62 (Dense)               (1, 49, 768)         590592      ['layer_normalization_21[0][0]'] 
+                                                                                                  
+ tf.__operators__.add_69 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul_20[0][0]']    
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_91 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_62[0][0]']               
+                                                                                                  
+ tf.nn.softmax_10 (TFOpLambda)  (12, 49, 49)         0           ['tf.__operators__.add_69[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_41 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_91[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ dropout_42 (Dropout)           (12, 49, 49)         0           ['tf.nn.softmax_10[0][0]']       
+                                                                                                  
+ tf.reshape_95 (TFOpLambda)     (12, 49, 64)         0           ['tf.compat.v1.transpose_41[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_21 (TFOpLambd  (12, 49, 64)        0           ['dropout_42[0][0]',             
+ a)                                                               'tf.reshape_95[0][0]']          
+                                                                                                  
+ tf.reshape_96 (TFOpLambda)     (1, 12, 49, 64)      0           ['tf.linalg.matmul_21[0][0]']    
+                                                                                                  
+ tf.compat.v1.transpose_43 (TFO  (1, 49, 12, 64)     0           ['tf.reshape_96[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_97 (TFOpLambda)     (1, 49, 768)         0           ['tf.compat.v1.transpose_43[0][0]
+                                                                 ']                               
+                                                                                                  
+ dense_63 (Dense)               (1, 49, 768)         590592      ['tf.reshape_97[0][0]']          
+                                                                                                  
+ dropout_43 (Dropout)           (1, 49, 768)         0           ['dense_63[0][0]']               
+                                                                                                  
+ tf.__operators__.add_70 (TFOpL  (1, 49, 768)        0           ['layer_normalization_21[0][0]', 
+ ambda)                                                           'dropout_43[0][0]']             
+                                                                                                  
+ layer_normalization_22 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_70[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_64 (Dense)               (1, 49, 3072)        2362368     ['layer_normalization_22[0][0]'] 
+                                                                                                  
+ tf.convert_to_tensor_18 (TFOpL  (1, 49, 3072)       0           ['dense_64[0][0]']               
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.pow_18 (TFOpLambda)    (1, 49, 3072)        0           ['tf.convert_to_tensor_18[0][0]']
+                                                                                                  
+ tf.math.multiply_86 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_18[0][0]']         
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_71 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_18[0][0]',
+ ambda)                                                           'tf.math.multiply_86[0][0]']    
+                                                                                                  
+ tf.math.multiply_87 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_71[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_18 (TFOpLambda)   (1, 49, 3072)        0           ['tf.math.multiply_87[0][0]']    
+                                                                                                  
+ tf.__operators__.add_72 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_18[0][0]']        
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_88 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_72[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_89 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_18[0][0]',
+ a)                                                               'tf.math.multiply_88[0][0]']    
+                                                                                                  
+ dropout_44 (Dropout)           (1, 49, 3072)        0           ['tf.math.multiply_89[0][0]']    
+                                                                                                  
+ dense_65 (Dense)               (1, 49, 768)         2360064     ['dropout_44[0][0]']             
+                                                                                                  
+ dropout_45 (Dropout)           (1, 49, 768)         0           ['dense_65[0][0]']               
+                                                                                                  
+ tf.__operators__.add_73 (TFOpL  (1, 49, 768)        0           ['layer_normalization_22[0][0]', 
+ ambda)                                                           'dropout_45[0][0]']             
+                                                                                                  
+ layer_normalization_23 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_73[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_67 (Dense)               (1, 49, 768)         590592      ['layer_normalization_23[0][0]'] 
+                                                                                                  
+ tf.math.multiply_90 (TFOpLambd  (1, 49, 768)        0           ['dense_67[0][0]']               
+ a)                                                                                               
+                                                                                                  
+ dense_66 (Dense)               (1, 49, 768)         590592      ['layer_normalization_23[0][0]'] 
+                                                                                                  
+ tf.reshape_101 (TFOpLambda)    (1, 49, 12, 64)      0           ['tf.math.multiply_90[0][0]']    
+                                                                                                  
+ tf.reshape_99 (TFOpLambda)     (1, 49, 12, 64)      0           ['dense_66[0][0]']               
+                                                                                                  
+ tf.compat.v1.transpose_46 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_101[0][0]']         
+ pLambda)                                                                                         
+                                                                                                  
+ tf.compat.v1.transpose_44 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_99[0][0]']          
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_102 (TFOpLambda)    (12, 49, 64)         0           ['tf.compat.v1.transpose_46[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.reshape_103 (TFOpLambda)    (12, 49, 64)         0           ['tf.compat.v1.transpose_44[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_22 (TFOpLambd  (12, 49, 49)        0           ['tf.reshape_102[0][0]',         
+ a)                                                               'tf.reshape_103[0][0]']         
+                                                                                                  
+ dense_68 (Dense)               (1, 49, 768)         590592      ['layer_normalization_23[0][0]'] 
+                                                                                                  
+ tf.__operators__.add_74 (TFOpL  (12, 49, 49)        0           ['tf.linalg.matmul_22[0][0]']    
+ ambda)                                                                                           
+                                                                                                  
+ tf.reshape_100 (TFOpLambda)    (1, 49, 12, 64)      0           ['dense_68[0][0]']               
+                                                                                                  
+ tf.nn.softmax_11 (TFOpLambda)  (12, 49, 49)         0           ['tf.__operators__.add_74[0][0]']
+                                                                                                  
+ tf.compat.v1.transpose_45 (TFO  (1, 12, 49, 64)     0           ['tf.reshape_100[0][0]']         
+ pLambda)                                                                                         
+                                                                                                  
+ dropout_46 (Dropout)           (12, 49, 49)         0           ['tf.nn.softmax_11[0][0]']       
+                                                                                                  
+ tf.reshape_104 (TFOpLambda)    (12, 49, 64)         0           ['tf.compat.v1.transpose_45[0][0]
+                                                                 ']                               
+                                                                                                  
+ tf.linalg.matmul_23 (TFOpLambd  (12, 49, 64)        0           ['dropout_46[0][0]',             
+ a)                                                               'tf.reshape_104[0][0]']         
+                                                                                                  
+ tf.reshape_105 (TFOpLambda)    (1, 12, 49, 64)      0           ['tf.linalg.matmul_23[0][0]']    
+                                                                                                  
+ tf.compat.v1.transpose_47 (TFO  (1, 49, 12, 64)     0           ['tf.reshape_105[0][0]']         
+ pLambda)                                                                                         
+                                                                                                  
+ tf.reshape_106 (TFOpLambda)    (1, 49, 768)         0           ['tf.compat.v1.transpose_47[0][0]
+                                                                 ']                               
+                                                                                                  
+ dense_69 (Dense)               (1, 49, 768)         590592      ['tf.reshape_106[0][0]']         
+                                                                                                  
+ dropout_47 (Dropout)           (1, 49, 768)         0           ['dense_69[0][0]']               
+                                                                                                  
+ tf.__operators__.add_75 (TFOpL  (1, 49, 768)        0           ['layer_normalization_23[0][0]', 
+ ambda)                                                           'dropout_47[0][0]']             
+                                                                                                  
+ layer_normalization_24 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_75[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dense_70 (Dense)               (1, 49, 3072)        2362368     ['layer_normalization_24[0][0]'] 
+                                                                                                  
+ tf.convert_to_tensor_19 (TFOpL  (1, 49, 3072)       0           ['dense_70[0][0]']               
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.pow_19 (TFOpLambda)    (1, 49, 3072)        0           ['tf.convert_to_tensor_19[0][0]']
+                                                                                                  
+ tf.math.multiply_91 (TFOpLambd  (1, 49, 3072)       0           ['tf.math.pow_19[0][0]']         
+ a)                                                                                               
+                                                                                                  
+ tf.__operators__.add_76 (TFOpL  (1, 49, 3072)       0           ['tf.convert_to_tensor_19[0][0]',
+ ambda)                                                           'tf.math.multiply_91[0][0]']    
+                                                                                                  
+ tf.math.multiply_92 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_76[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.tanh_19 (TFOpLambda)   (1, 49, 3072)        0           ['tf.math.multiply_92[0][0]']    
+                                                                                                  
+ tf.__operators__.add_77 (TFOpL  (1, 49, 3072)       0           ['tf.math.tanh_19[0][0]']        
+ ambda)                                                                                           
+                                                                                                  
+ tf.math.multiply_93 (TFOpLambd  (1, 49, 3072)       0           ['tf.__operators__.add_77[0][0]']
+ a)                                                                                               
+                                                                                                  
+ tf.math.multiply_94 (TFOpLambd  (1, 49, 3072)       0           ['tf.convert_to_tensor_19[0][0]',
+ a)                                                               'tf.math.multiply_93[0][0]']    
+                                                                                                  
+ dropout_48 (Dropout)           (1, 49, 3072)        0           ['tf.math.multiply_94[0][0]']    
+                                                                                                  
+ dense_71 (Dense)               (1, 49, 768)         2360064     ['dropout_48[0][0]']             
+                                                                                                  
+ dropout_49 (Dropout)           (1, 49, 768)         0           ['dense_71[0][0]']               
+                                                                                                  
+ tf.__operators__.add_78 (TFOpL  (1, 49, 768)        0           ['layer_normalization_24[0][0]', 
+ ambda)                                                           'dropout_49[0][0]']             
+                                                                                                  
+ layer_normalization_25 (LayerN  (1, 49, 768)        1536        ['tf.__operators__.add_78[0][0]']
+ ormalization)                                                                                    
+                                                                                                  
+ dropout_50 (Dropout)           (1, 49, 768)         0           ['layer_normalization_25[0][0]'] 
+                                                                                                  
+ quantize_annotate (QuantizeAnn  (1, 49, 45)         34605       ['dropout_50[0][0]']             
+ otate)                                                                                           
+                                                                                                  
+==================================================================================================
+Total params: 94,404,397
+Trainable params: 94,404,397
+Non-trainable params: 0
+__________________________________________________________________________________________________

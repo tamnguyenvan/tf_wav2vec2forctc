@@ -11,6 +11,10 @@ from ops import (
     wav2vec2_positional_conv_embedding, wav2vec2_encoder_layer
 )
 
+import tensorflow_model_optimization as tfmot
+
+quantize_annotate_layer = tfmot.quantization.keras.quantize_annotate_layer
+
 
 LARGE_NEGATIVE = -1e8
 
@@ -212,7 +216,7 @@ def wav2vec2_feature_projection(hidden_states: tf.Tensor, training: bool = False
         name="projection",
     )(norm_hidden_states)
     hidden_states = layers.Dropout(
-        rate=config.feat_proj_dropout)(hidden_states)
+        rate=config.feat_proj_dropout)(hidden_states, training=training)
     return hidden_states, norm_hidden_states
 
 
@@ -234,8 +238,6 @@ def wav2vec2_encoder(
     else:
         attention_mask = None
 
-    attn_residual = hidden_states
-    print('wav2vec2_encoder in', hidden_states.shape, attention_mask)
     position_embeddings = wav2vec2_positional_conv_embedding(
         hidden_states)
     hidden_states = hidden_states + position_embeddings
@@ -283,7 +285,6 @@ def wav2vec2_main_layer(inputs, mask_time_indices: tf.Tensor = None, name: str =
     extract_features = wav2vec2_feature_encoder(
         tf.cast(inputs["input_values"], tf.float32), training=inputs["training"]
     )
-    print('extract_features', extract_features.shape)
     # extract_features = tf.transpose(extract_features, perm=(0, 2, 1))
 
     if inputs["attention_mask"] is not None:
@@ -299,13 +300,14 @@ def wav2vec2_main_layer(inputs, mask_time_indices: tf.Tensor = None, name: str =
     hidden_states, extract_features = wav2vec2_feature_projection(
         extract_features, training=inputs["training"])
 
-    print('projection', hidden_states.shape, extract_features.shape)
-
     # mask_time_indices = kwargs.get("mask_time_indices", None)
     if inputs["training"]:
         hidden_states = _mask_hidden_states(
             hidden_states, mask_time_indices=mask_time_indices)
 
+    print('================== hidden',
+          hidden_states.shape, extract_features.shape)
+    print('before encoder', hidden_states.shape)
     encoder_outputs = wav2vec2_encoder(
         hidden_states,
         attention_mask=attention_mask,
@@ -324,7 +326,7 @@ def wav2vec2_main_layer(inputs, mask_time_indices: tf.Tensor = None, name: str =
 
 def wav2vec2_for_ctc(input_dim: int = 11200, vocab_size: int = 72):
     inputs = layers.Input(shape=(input_dim,), batch_size=1)
-    print(inputs.shape)
+    print('input shape', inputs.shape)
     inputs_dict = {
         'input_values': inputs,
         'training': False,
@@ -341,6 +343,7 @@ def wav2vec2_for_ctc(input_dim: int = 11200, vocab_size: int = 72):
 
     hidden_states = wav2vec2_main_layer(inputs_dict, name='wav2vec2')
     x = layers.Dropout(0.2)(hidden_states)
-    outputs = layers.Dense(vocab_size, name='lm_head')(x)
+    outputs = quantize_annotate_layer(
+        layers.Dense(vocab_size, name='lm_head'))(x)
     model = tf.keras.Model(inputs, outputs)
     return model

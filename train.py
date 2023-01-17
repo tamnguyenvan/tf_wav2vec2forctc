@@ -1,15 +1,20 @@
 import argparse
 
 import tensorflow as tf
+import tensorflow_model_optimization as tfmot
 
 from model import wav2vec2_for_ctc
-from data_loader import create_data_loader
+
+quantize_annotate_layer = tfmot.quantization.keras.quantize_annotate_layer
+quantize_annotate_model = tfmot.quantization.keras.quantize_annotate_model
+quantize_scope = tfmot.quantization.keras.quantize_scope
 
 
 def main():
-    create_data_loader()
-    # net = wav2vec2_for_ctc(input_dim=11200, vocab_size=45)
+    net = wav2vec2_for_ctc(input_dim=16000, vocab_size=45)
     # net.summary()
+
+    quant_aware_model = tfmot.quantization.keras.quantize_apply(net)
 
     # converter = tf.lite.TFLiteConverter.from_keras_model(net)
     # converter.optimizations = [tf.lite.Optimize.DEFAULT]
