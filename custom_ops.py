@@ -4,61 +4,79 @@ import tensorflow as tf
 from utils import shape_list, stable_softmax
 
 
-def wav2vec2_weight_norm_conv1d(filters: int, kernel_size: int, groups: int, explicit_padding: int):
-    def _wav2vec2_weight_norm_conv1d(inputs: tf.Tensor):
-        # Build
-        input_shape = inputs.shape
+def wav2vec2_weight_norm_conv1d(
+    filters,
+    kernel_size,
+    groups,
+    explicit_padding,
+    **kwargs
+):
+
+    def _init_norm(layer):
+        """Set the norm of the weight vector."""
+        kernel_norm = tf.sqrt(tf.reduce_sum(
+            tf.square(layer.weight_v), axis=layer.kernel_norm_axes))
+        layer.weight_g.assign(kernel_norm[:, tf.newaxis, tf.newaxis])
+
+    def _normalize_kernel(layer):
+        """Generate normalized weights."""
+        kernel = tf.nn.l2_normalize(
+            layer.weight_v, axis=layer.kernel_norm_axes) * tf.transpose(layer.weight_g)
+        layer.kernel = tf.transpose(kernel)
+
+    def _build(layer, input_shape):
+        # if not layer.built:
         input_shape = input_shape.as_list()
-        filter_axis = 2
-        kernel_norm_axes = tf.constant([0, 1])
-
         # Conv1D output shapes are checked at build time since TF 2.7, so we need to account for padding
-        input_shape[-2] += explicit_padding * 2
+        input_shape[-2] += layer.explicit_padding * 2
+        layer.conv1d.build(input_shape)
 
-        # super
-        base_conv1d = tf.keras.layers.Conv1D(
+        layer.kernel = tf.Variable(tf.transpose(
+            layer.conv1d.kernel), name="weight_v", trainable=True)
+        layer.weight_v = layer.kernel
+
+        layer.weight_g = layer.add_weight(
+            name="weight_g",
+            shape=(int(layer.weight_v.shape[layer.filter_axis]), 1, 1),
+            initializer="ones",
+            dtype=layer.weight_v.dtype,
+            trainable=True,
+        )
+        layer.bias = layer.add_weight(name="bias", shape=(
+            layer.conv1d.filters,), initializer="zeros", trainable=True)
+
+    def _wav2vec2_weight_norm_conv1d(inputs: tf.Tensor):
+        # Init
+        base_layer = tf.keras.layers.Layer()
+        base_layer.conv1d = tf.keras.layers.Conv1D(
             filters=filters,
             kernel_size=kernel_size,
             groups=groups,
             padding="valid",
             use_bias=True,
             bias_initializer="he_normal",
+            **kwargs,
         )
-        base_conv1d.build(input_shape)
+        base_layer.explicit_padding = explicit_padding
+        base_layer.filter_axis = 2
+        base_layer.initialized = False
+        base_layer.kernel_norm_axes = tf.constant([0, 1])
 
-        base_conv1d.kernel = tf.Variable(tf.transpose(
-            base_conv1d.kernel), name="weight_v", trainable=True)
-        base_conv1d.weight_v = base_conv1d.kernel
-        base_conv1d.weight_g = base_conv1d.add_weight(
-            name="weight_g",
-            shape=(int(base_conv1d.weight_v.shape[filter_axis]), 1, 1),
-            initializer="ones",
-            dtype=base_conv1d.weight_v.dtype,
-            trainable=True,
-        )
-        base_conv1d.bias = base_conv1d.add_weight(
-            name="bias",
-            shape=(filters,),
-            initializer="zeros",
-            trainable=True
-        )
+        input_shape = inputs.shape
+        if not base_layer.built:
+            _build(base_layer, input_shape)
 
-        """Set the norm of the weight vector."""
-        kernel_norm = tf.sqrt(tf.reduce_sum(
-            tf.square(base_conv1d.weight_v), axis=kernel_norm_axes))
-        base_conv1d.weight_g.assign(kernel_norm[:, tf.newaxis, tf.newaxis])
+        if not base_layer.initialized:
+            _init_norm(base_layer)
+            base_layer.initialized = True
 
-        # Normalize kernel
-        kernel = tf.nn.l2_normalize(
-            base_conv1d.weight_v, axis=kernel_norm_axes) * tf.transpose(base_conv1d.weight_g)
-        base_conv1d.kernel = tf.transpose(kernel)
+        _normalize_kernel(base_layer)
 
-        import pdb
-        pdb.set_trace()
-        padded_inputs = tf.pad(
-            inputs, ((0, 0), (explicit_padding, explicit_padding), (0, 0)))
-        outputs = base_conv1d(padded_inputs)
-        return outputs
+        padded_inputs = tf.pad(inputs, ((
+            0, 0), (base_layer.explicit_padding, base_layer.explicit_padding), (0, 0)))
+        output = base_layer.conv1d(padded_inputs)
+        print('~~~~~~~~ output', output.shape)
+        return output
     return _wav2vec2_weight_norm_conv1d
 
 

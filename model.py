@@ -343,7 +343,6 @@ def wav2vec2_for_ctc(input_dim: int = 11200, vocab_size: int = 72):
 
     hidden_states = wav2vec2_main_layer(inputs_dict, name='wav2vec2')
     x = layers.Dropout(0.2)(hidden_states)
-    outputs = quantize_annotate_layer(
-        layers.Dense(vocab_size, name='lm_head'))(x)
+    outputs = layers.Dense(vocab_size, name='lm_head')(x)
     model = tf.keras.Model(inputs, outputs)
     return model
